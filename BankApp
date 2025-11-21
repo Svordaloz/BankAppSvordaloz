@@ -9,7 +9,15 @@ BankKonto konto = new BankKonto (); //skapar bankkonto objekt för användaren
 boolean running = true; //boolean som håller igång appen när den används
 Scanner scanner = new Scanner(System.in); //skapar scanner objekt för att läsa input från användare
 NumberFormat valutaformat = NumberFormat.getCurrencyInstance(); //ett valutaformat objekt för att visa värdena i valutaformat
-
+int val; //variabel för att hålla användares val i minnet
+while (running) { //loop som håller appen igång medan den är i bruk
+    System.out.println("Välkommen till Svordaloz Bank! Vad vill du göra idag?"); //detta meddelande visas varje gång loopen körs
+    System.out.println("1. Sätt in kronor");
+    System.out.println("2. Ta ut kronor");
+    System.out.println("3. Visa Saldo");
+    System.out.println("4. Avsluta"); //användaren får fyra valmöjligheter, sätta in, ta ut, visa saldo eller avsluta
+    val = scanner.nextInt(); //läser in användarens input
+    System.out.println("Ange ett av de tillgängliga valen:");
         }
     }
 }
