@@ -1,7 +1,5 @@
 //import sektion
 import java.util.Scanner; //importerar scanner för att läsa data från användaren, dvs lägga till och ta ut pengar
-import java.util.HashMap; //importerar hashMap för att lagra användarens kontoinformation
-import java.util.Map; //importerad för att använda HashMap ovan i koden
 //End import
 
 public class BankApp { //huvudklass för bankappen
@@ -27,30 +25,31 @@ public class BankApp { //huvudklass för bankappen
     
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in); //scanner för att läsa input från användaren
-        String user = ""; //variabel för att hålla koll på användarnamnet
-        String password = ""; //variabel för att hålla koll på lösenordet
         boolean running = true; //boolean som håller igång appen när den används
 
         //NumberFormat valutaformat = NumberFormat.getCurrencyInstance(); //ett valutaformat objekt för att visa värdena i valutaformat
         int val; //variabel för att hålla användares "val" i minnet
+        System.out.println("Välkommen till Svordaloz Bank! Vad vill du göra idag?"); //meddelande visas varje gång loopen körs
         while (running) { //loop som håller appen igång medan den är i bruk
-            System.out.println("Välkommen till Svordaloz Bank! Vad vill du göra idag?"); //meddelande visas varje gång loopen körs
-            System.out.println("1. Sätt in belop"); // Put in
-            System.out.println("2. Ta ut belopp"); // Take out
-            System.out.println("3. Visa saldo"); // Show balance
+            System.out.println("1. Visa saldo"); // View Balance
+            System.out.println("2. Sätt in belopp"); // Deposit Money
+            System.out.println("3. Ta ut belopp"); // Withdraw Money
             System.out.println("4. Avsluta"); // Exit
         //användaren får fyra valmöjligheter, sätta in, ta ut, visa saldo eller avslut
             
         System.out.println("Ange ett av de tillgängliga valen:");
         val = input.nextInt(); //läser in användarens input
         switch (val) { //switch sats för att hantera användarens val
-            case 1: //om användaren väljer 1 // Put in 
+            case 1: //om användaren väljer 1
+                System.out.println("Ditt nuvarande saldo är: " + getBalance() + " kronor."); //visar användarens nuvarande saldo i valutaformat
+                break;
+            case 2: //om användaren väljer 2
                 System.out.println("Ange belopp att sätta in:"); //frågar användaren hur mycket de vill sätta in
                 float cashIn = input.nextFloat(); //läser in insättningsbeloppet
                 putIn(cashIn); //anropar metoden sättIn från BankKonto klassen för att lägga till pengar på kontot
                 System.out.println(cashIn + " kronor har satts in på ditt konto."); //bekräftelsemeddelande som visar insatt belopp i valutaformat
                 break;
-            case 2: //om användaren väljer 2
+            case 3: //om användaren väljer 3
                 System.out.println("Ange belopp att ta ut:"); //frågar användaren hur mycket de vill ta ut
                 float cashOut = input.nextFloat(); //läser in uttagsbeloppet
                 if (takeOut(cashOut)) { //anropar metoden taUt från BankKonto klassen för att ta ut pengar från kontot, om möjligt, annars visas ett felmeddelande
@@ -59,10 +58,7 @@ public class BankApp { //huvudklass för bankappen
                     System.out.println("Otillräckligt saldo för detta uttag."); //meddelande om det inte finns tillräckligt med pengar på kontot :/
                 }
                 break;
-            case 3: //om användaren väljer 3
-                System.out.println("Ditt nuvarande saldo är: " + getBalance() + " kronor."); //visar användarens nuvarande saldo i valutaformat
-                break;
-            case 4:   //om användaren väljer 4
+            case 4: //om användaren väljer 4
                 System.out.println("Tack för att du använde Svordaloz Bank! Ha en bra dag!"); //avslutningsmeddelande
                 running = false; //sätter running till false för att avsluta loopen och därmed appen
                 break;
