@@ -1,14 +1,17 @@
 import java.util.Scanner; //importerar scanner för att läsa data från användaren, dvs lägga till och ta ut pengar
 import java.util.BigDecimal; //mera precision av de insatta pengarna- jag väljer dock inte lägga till round up eller ned i denna app för enkelhetens skull
 import java.util.NumberFormat; //för att lättare formatera värden i valutaformat
-int balance = 0; //varibel för att hålla koll på saldot på användarens konto
-
+import java.util.HashMap; //importerar hashMap för att lagra användarens kontoinformation
 public class BankApp {
     public static void main(String[] args) {
+int balance = 0; //varibel för att hålla koll på saldot på användarens konto
+Scanner input =
 new Scanner(System.in); //scanner objekt för att läsa in datan från användaren
+
 BankKonto konto = new BankKonto (); //skapar bankkonto objekt för användaren
 boolean running = true; //boolean som håller igång appen när den används
 Scanner scanner = new Scanner(System.in); //skapar scanner objekt för att läsa input från användare
+
 NumberFormat valutaformat = NumberFormat.getCurrencyInstance(); //ett valutaformat objekt för att visa värdena i valutaformat
 int val; //variabel för att hålla användares "val" i minnet
 while (running) { //loop som håller appen igång medan den är i bruk
