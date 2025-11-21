@@ -1,29 +1,74 @@
+//import sektion
 import java.util.Scanner; //importerar scanner för att läsa data från användaren, dvs lägga till och ta ut pengar
 import java.util.BigDecimal; //mera precision av de insatta pengarna- jag väljer dock inte lägga till round up eller ned i denna app för enkelhetens skull
 import java.util.NumberFormat; //för att lättare formatera värden i valutaformat
 import java.util.HashMap; //importerar hashMap för att lagra användarens kontoinformation
 import java.util.Map; //importerad för att använda HashMap ovan i koden
-public class BankApp {
-    public static void main(String[] args) {
-Scanner input = new Scanner(System.in); //scanner objekt för att läsa in datan från användaren
-public static String användarnamn = null; //variabel med syfte att hålla koll på användarnamnet
-public static String lösenord = ""; //variabel med syfte att hålla koll på lösenord
-int balance = 0; //varibel för att hålla koll på saldot på användarens konto
+//End import
 
-BankKonto konto = new BankKonto (); //skapar bankkonto objekt för användaren
+public class BankApp { //huvudklass för bankappen
+    public static void main(String[] args) {
+
+//användaren
+HashMap<String, String> användare = new HashMap<>(); //skapar en hashMap för att lagra användarnamn och lösenord
+Scanner input = new Scanner(System.in); //scanner objekt för att läsa input från användaren
+public static String användarnamn = ""; //variabel med syfte att hålla koll på användarnamnet
+public static String lösenord = ""; //variabel med syfte att hålla koll på lösenord
+//end användaren
+
+//saldo
+int balance = 0; //varibel för att hålla koll på saldot på användarens konto
+//end saldo
+
+//bankkonto
+BankKonto konto = new BankKonto (); //skapar bankkonto för användaren
 boolean running = true; //boolean som håller igång appen när den används
 Scanner scanner = new Scanner(System.in); //skapar scanner objekt för att läsa input från användare
 
 NumberFormat valutaformat = NumberFormat.getCurrencyInstance(); //ett valutaformat objekt för att visa värdena i valutaformat
 int val; //variabel för att hålla användares "val" i minnet
+//end bankkonto
+//huvudloop
 while (running) { //loop som håller appen igång medan den är i bruk
-    System.out.println("Välkommen till Svordaloz Bank! Vad vill du göra idag?"); //detta meddelande visas varje gång loopen körs
-    System.out.println("1. Sätt in kronor");
-    System.out.println("2. Ta ut kronor");
-    System.out.println("3. Visa Saldo");
+    System.out.println("Välkommen till Svordaloz Bank! Vad vill du göra idag?"); //meddelande visas varje gång loopen körs
+    System.out.println("1. Sätt in belop");
+    System.out.println("2. Ta ut belopp");
+    System.out.println("3. Visa saldo");
     System.out.println("4. Avsluta"); //användaren får fyra valmöjligheter, sätta in, ta ut, visa saldo eller avsluta
+    
     val = scanner.nextInt(); //läser in användarens input
     System.out.println("Ange ett av de tillgängliga valen:");
+    switch (val) { //switch sats för att hantera användarens val
+        case 1: //om användaren väljer 1
+            System.out.println("Ange belopp att sätta in:"); //frågar användaren hur mycket de vill sätta in
+            int insättning = scanner.nextInt(); //läser in insättningsbeloppet
+            konto.sättIn(insättning); //anropar metoden sättIn från BankKonto klassen för att lägga till pengar på kontot
+            System.out.println(valutaformat.format(insättning) + " kronor har satts in på ditt konto."); //bekräftelsemeddelande som visar insatt belopp i valutaformat
+            break;
+    switch (val) {
+        case 2: //om användaren väljer 2
+            System.out.println("Ange belopp att ta ut:"); //frågar användaren hur mycket de vill ta ut
+            int uttag = scanner.nextInt(); //läser in uttagsbeloppet
+            if (konto.taUt(uttag)) { //anropar metoden taUt från BankKonto klassen för att ta ut pengar från kontot, om möjligt, annars visas ett felmeddelande
+                System.out.println(valutaformat.format(uttag) + " kronor har tagits ut från ditt konto."); //bekräftelsemeddelande som visar uttaget belopp i valutaformat
+            } else {
+                System.out.println("Otillräckligt saldo för detta uttag."); //meddelande om det inte finns tillräckligt med pengar på kontot :/
+            }
+            break;
+            switch (val) {
+        case 3: //om användaren väljer 3
+            System.out.println("Ditt nuvarande saldo är: " + valutaformat.format(konto.getSaldo()) + " kronor."); //visar användarens nuvarande saldo i valutaformat
+            break;
+            switch (val) {
+        case 4: //om användaren väljer 4
+            System.out.println("Tack för att du använde Svordaloz Bank! Ha en bra dag!"); //avslutningsmeddelande
+            running = false; //sätter running till false för att avsluta loopen och därmed appen
+            break;
+    //end huvudloop
+ 
+    default: //om användaren anger ett ogiltigt val
+            System.out.println("Ogiltigt val. Vänligen försök igen."); //meddelande om ogiltigt val
+            break;
         }
     }
 }
