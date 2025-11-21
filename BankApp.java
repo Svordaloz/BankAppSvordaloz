@@ -1,17 +1,20 @@
 //import sektion
+import java.text.NumberFormat;
 import java.util.Scanner; //importerar scanner för att läsa data från användaren, dvs lägga till och ta ut pengar
+import java.util.Locale;
 //End import
 
 public class BankApp { //huvudklass för bankappen
      public static float balance = 0.0f;
-     
+     public static Scanner input = new Scanner(System.in); //scanner för att läsa input från användaren
+     public static NumberFormat valutaformat = NumberFormat.getCurrencyInstance(new Locale("sv", "SE")); //ett valutaformat objekt för att visa värdena i valutaformat
      public static void deposit() {
         System.out.println("Ange belopp att sätta in:"); //frågar användaren hur mycket de vill sätta in
         float cashIn = input.nextFloat(); //läser in insättningsbeloppet
         if (cashIn > 0) { //kontrollerar att insättningsbeloppet är positivt
             balance += cashIn; //lägger till beloppet till saldot
         }
-        System.out.println(cashIn + " kronor har satts in på ditt konto."); //bekräftelsemeddelande som visar insatt belopp i valutaformat
+        System.out.println(valutaformat.format(cashIn) + " har satts in på ditt konto."); //bekräftelsemeddelande som visar insatt belopp i valutaformat
     }
 
     public static void withdraw() {
@@ -29,11 +32,9 @@ public class BankApp { //huvudklass för bankappen
         System.out.println("Ditt nuvarande saldo är: " + balance + " kronor.");
         //return balance; //returnerar det nuvarande saldot på kontot
     }
-    
-    static Scanner input = new Scanner(System.in); //scanner för att läsa input från användaren
+
     public static void main(String[] args) {
         boolean running = true; //boolean som håller igång appen när den används
-        //NumberFormat valutaformat = NumberFormat.getCurrencyInstance(); //ett valutaformat objekt för att visa värdena i valutaformat
         int val; //variabel för att hålla användares "val" i minnet
         System.out.println("Välkommen till Svordaloz Bank! Vad vill du göra idag?"); //meddelande visas varje gång loopen körs
         while (running) { //loop som håller appen igång medan den är i bruk
